@@ -79,6 +79,7 @@ junit_duration_report = 'call'
 [tool.coverage.run]
 branch = true
 source = ["cockatoo_chain/"]
+relative_files = true
 
 [tool.coverage.report]
 show_missing = true

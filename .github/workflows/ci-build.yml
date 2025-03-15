@@ -38,9 +38,6 @@ jobs:
       - name: Pytest
         run: coverage run -m pytest tests
 
-      - name: echo github token
-        run: echo ${{ github.token }}
-
       # auto generates code-coverage-results.md
       - name: Coverage comment
         id: coverage_comment
