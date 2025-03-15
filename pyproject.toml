@@ -35,7 +35,7 @@ sphinx = "^8.2.3"
 [tool.ruff]
 target-version = "py312"
 exclude = ["__init__.py"]
-line-length = 100
+line-length = 80
 indent-width = 2
 
 [tool.ruff.lint]
@@ -59,3 +59,51 @@ preview = true
 
 [tool.ruff.lint.pydocstyle]
 convention = "google"
+
+[tool.ruff.lint.mccabe]
+max-complexity = 7
+
+[tool.ruff.format]
+indent-style = "space"
+docstring-code-format = true
+
+[tool.pytest.ini_options]
+addopts = [
+    "--cache-clear",
+    "--color=auto",
+    "--tb=short",
+    "-ra",
+]
+junit_duration_report = 'call'
+
+[tool.coverage.run]
+branch = true
+source = ["cockatoo_chain/"]
+
+[tool.coverage.report]
+show_missing = true
+skip_empty = true
+# coverage threshold
+# fail_under=90
+# Regexes for lines to exclude from consideration
+exclude_also = [
+    # Don't complain about missing debug-only code:
+    "if self[.]debug",
+
+    # Don't complain for trivial parts
+    "def __repr__",
+    "def __hash__",
+    "def __str__",
+
+    # Don't complain if tests don't hit defensive assertion code:
+    "raise AssertionError",
+    "raise NotImplementedError",
+
+    # Don't complain if non-runnable code isn't run:
+    "if 0:",
+    "if __name__ == .__main__.:",
+    "pass",
+
+    # Don't complain about abstract methods, they aren't run:
+    "@(abc[.])?abstractmethod",
+]
