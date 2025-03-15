@@ -12,7 +12,14 @@ jobs:
     strategy:
       matrix:
         python-version: ["3.12"]
-
+    permissions:
+      # Gives the action the necessary permissions for publishing new
+      # comments in pull requests.
+      pull-requests: write
+      # Gives the action the necessary permissions for pushing data to the
+      # python-coverage-comment-action branch, and for editing existing
+      # comments (to avoid publishing multiple comments in the same PR)
+      contents: write
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -29,23 +36,23 @@ jobs:
           pip install -r requirements_dev.txt
 
       - name: Pytest
-        run: make test
+        run: coverage run -m pytest tests
 
-      - name: Code Coverage Summary Report
-        uses: irongut/CodeCoverageSummary@v1.3.0
+      - name: echo github token
+        run: echo ${{ github.token }}
+
+      # auto generates code-coverage-results.md
+      - name: Coverage comment
+        id: coverage_comment
+        uses: py-cov-action/python-coverage-comment-action@v3
         with:
-          filename: .junit-report.xml
-          badge: true
-          format: markdown
-          thresholds: '70 90'
-          output: both
+          GITHUB_TOKEN: ${{ github.token }}
 
-      - name: Add Coverage PR Comment
-        uses: marocchino/sticky-pull-request-comment@v2
-        if: github.event_name == 'pull_request'
+      - name: Store Pull Request comment to be posted
+        uses: actions/upload-artifact@v4
+        if: steps.coverage_comment.outputs.COMMENT_FILE_WRITTEN == 'true'
         with:
-          recreate: true
-          path: code-coverage-results.md
-
-      - name: Write to Job Summary
-        run: cat code-coverage-results.md >> $GITHUB_STEP_SUMMARY
+          # If you use a different name, update COMMENT_ARTIFACT_NAME accordingly
+          name: python-coverage-comment-action
+          # If you use a different name, update COMMENT_FILENAME accordingly
+          path: python-coverage-comment-action.txt
