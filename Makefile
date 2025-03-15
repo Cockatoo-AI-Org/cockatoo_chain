@@ -1,7 +1,7 @@
 .PHONY: init-repo-setup poetry-export test
 
 init-repo-setup:
-	poetry install
+	poetry install --all-groups
 	pre-commit install
 
 poetry-export:
