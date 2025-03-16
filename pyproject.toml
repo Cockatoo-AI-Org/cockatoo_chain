@@ -1,0 +1,110 @@
+[project]
+name = "cockatoo-chain"
+version = "0.1.0"
+description = "The package is intended for STT, LLM and TSS models chaining."
+authors = [
+    {name = "John Lee",email = "puremonkey2007@gmail.com"},
+    {name = "Louis",email = "louis120913@gmail.com"},
+    {name = "Wen-Kai Chung",email = "wkaichungtw@gmail.com"},
+]
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "pandas (>=2.2.3,<3.0.0)",
+    "python-dotenv (>=1.0.1,<2.0.0)",
+    "tqdm (>=4.67.1,<5.0.0)",
+]
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry]
+package-mode = true
+
+[tool.poetry.requires-plugins]
+poetry-plugin-export = ">=1.9"
+
+[tool.poetry.group.dev.dependencies]
+coverage = "^7.6.12"
+ipykernel = "^6.29.5"
+pre-commit = "^4.1.0"
+pytest = "^8.3.5"
+sphinx = "^8.2.3"
+
+[tool.ruff]
+target-version = "py312"
+exclude = ["__init__.py"]
+line-length = 80
+indent-width = 2
+
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F"]
+extend-select = [
+    "D",    # pydocstyle doc error
+    "E",    # pydocstyle error
+    "C90",  # mccabe code complexity measure
+    "W",    # Warning
+]
+ignore = [
+    "D100",  # undocumented public module
+    "D105",  # undocumented magic method
+    "D107",  # undocumented public __init__
+    "D205",  # missing blank line after summary (preassume only 1-line summary)
+    "D401",  # non-imprative mood
+    "E266",  # multiple leading hashes for block comment
+    "W605",  # invalid escape sequence
+]
+preview = true
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.ruff.lint.mccabe]
+max-complexity = 7
+
+[tool.ruff.format]
+indent-style = "space"
+docstring-code-format = true
+
+[tool.pytest.ini_options]
+addopts = [
+    "--cache-clear",
+    "--color=auto",
+    "--tb=short",
+    "-ra",
+]
+junit_duration_report = 'call'
+
+[tool.coverage.run]
+branch = true
+source = ["cockatoo_chain/"]
+relative_files = true
+
+[tool.coverage.report]
+show_missing = true
+skip_empty = true
+# coverage threshold
+# fail_under=90
+# Regexes for lines to exclude from consideration
+exclude_also = [
+    # Don't complain about missing debug-only code:
+    "if self[.]debug",
+
+    # Don't complain for trivial parts
+    "def __repr__",
+    "def __hash__",
+    "def __str__",
+
+    # Don't complain if tests don't hit defensive assertion code:
+    "raise AssertionError",
+    "raise NotImplementedError",
+
+    # Don't complain if non-runnable code isn't run:
+    "if 0:",
+    "if __name__ == .__main__.:",
+    "pass",
+
+    # Don't complain about abstract methods, they aren't run:
+    "@(abc[.])?abstractmethod",
+]
