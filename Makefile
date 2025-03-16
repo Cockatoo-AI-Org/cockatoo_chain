@@ -1,4 +1,4 @@
-.PHONY: init-repo-setup poetry-export test
+.PHONY: init-repo-setup poetry-export test lint
 
 init-repo-setup:
 	poetry install --all-groups
@@ -13,3 +13,6 @@ poetry-export-prod:
 test:
 	- coverage run -m pytest tests --junit-xml=".junit-report.xml"
 	coverage report
+
+lint:
+	ruff check cockatoo_chain/
