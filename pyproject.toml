@@ -31,6 +31,8 @@ ipykernel = "^6.29.5"
 pre-commit = "^4.1.0"
 pytest = "^8.3.5"
 sphinx = "^8.2.3"
+flake8 = "^7.1.2"
+ruff = "^0.11.0"
 
 [tool.ruff]
 target-version = "py312"
@@ -54,6 +56,8 @@ ignore = [
     "D401",  # non-imprative mood
     "E266",  # multiple leading hashes for block comment
     "W605",  # invalid escape sequence
+    "E111",  # indentation-with-invalid-multiple
+    "E114",  # indentation-with-invalid-multiple-comment
 ]
 preview = true
 
