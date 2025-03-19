@@ -1,4 +1,4 @@
-.PHONY: init-repo-setup poetry-export test lint
+.PHONY: init-repo-setup poetry-export test lint precommit
 
 init-repo-setup:
 	poetry install --all-groups
