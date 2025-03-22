@@ -10,3 +10,6 @@ def load_env(env_path: str | None = None):
   """
   env_path = env_path or '~/.env'
   _ = load_dotenv(find_dotenv(os.path.expanduser(env_path)))
+
+
+load_env()
