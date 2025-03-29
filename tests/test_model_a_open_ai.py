@@ -47,6 +47,18 @@ class TestCockatooChain(unittest.TestCase):
       self.assertEqual(response.spent_time_sec, 1)
       self.assertEqual(response.audio_file_path, test_file_path)
 
+  @patch('cockatoo_chain.utils.model_a.open_ai.time')
+  def test_open_ai_wrapper_audio_2_text_with_exception(
+      self, mock_time):
+    """Test method `wrapper.audio_2_text(...)` with exception."""
+    mock_open_ai_client = self.mock_open_ai.OpenAI.return_value
+    mock_open_ai_client.audio.transcriptions.create.side_effect = (
+        Exception('test'))
+    open_ai_wrapper = open_ai.OpenAIWrapper(LangEnum.cn)
+    with tempfile.NamedTemporaryFile(mode="w+") as temp_file:
+      with self.assertRaises(Exception):
+        open_ai_wrapper.audio_2_text(temp_file.name)
+
   def test_open_ai_wrapper_live_2_text(self):
     """Test method `wrapper.live_2_text(...)`."""
     test_lang = LangEnum.cn

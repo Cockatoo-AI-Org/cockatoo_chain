@@ -81,40 +81,6 @@ class ModelA(Protocol):
     pass
 
 
-class ModelAMetric(Protocol):
-  """Clz to calculate metric score of model A.
-
-  Attributes:
-    name: Name of metric.
-    lang: Language of text to calculate metric.
-  """
-  name: str = 'Unknown'
-  do_sort_reverse: bool = True
-
-  def __init__(self, lang: LangEnum):
-    self._lang = lang
-
-  @property
-  def lang(self) -> LangEnum:
-    """The supported language(s) of MUT (model under test)."""
-    return self._lang
-
-  def score(
-      self,
-      transformed_text: str,
-      ground_truth_text: str) -> float:
-    """Calculates the metric score.
-
-    Args:
-      transformed_text: The text transformed by model A.
-      ground_truth_text: The ground truth of text.
-
-    Returns:
-      The corresponding metric score.
-    """
-    pass
-
-
 class ModelC(Protocol):
   """Model C interface."""
 
