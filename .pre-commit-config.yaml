@@ -34,7 +34,6 @@ repos:
     hooks:
     -   id: poetry-check
         args: ['--lock']
-    -   id: poetry-lock
 
 -   repo: https://github.com/python-poetry/poetry-plugin-export
     rev: '1.9.0'
