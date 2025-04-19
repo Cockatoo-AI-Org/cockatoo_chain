@@ -32,6 +32,7 @@ From `cockagoo_chain` package, you can easily access the power of Model A (Speec
 | Name            | Type       | Supported language                                                                            | Supported file type                                                                                                                     | Note                                                                   |
 |-----------------|------------|-----------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------|
 | open_ai_whisper | Remote API | en, cn and [more](https://platform.openai.com/docs/guides/speech-to-text#supported-languages) | File uploads are currently limited to 25 MB, and the following input file types are supported: mp3, mp4, mpeg, mpga, m4a, wav, and webm | [Official doc](https://platform.openai.com/docs/guides/speech-to-text) |
+| gcp_stt | Remote API | en, cn and [more](https://cloud.google.com/speech-to-text/docs/speech-to-text-supported-languages) | For details, please refer to [this link](https://cloud.google.com/speech-to-text/docs/optimizing-audio-files-for-speech-to-text#codecs_recognized_by_speech-to-text) | [Official doc](https://cloud.google.com/speech-to-text?hl=en) |
 
 ## Get supported Model A options
 You can use below code snippet to get the supported model A options:
