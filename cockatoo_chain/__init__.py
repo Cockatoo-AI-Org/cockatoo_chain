@@ -122,6 +122,8 @@ def get(
     resp = chat_model.invoke(prompt)
     spent_time_sec = (datetime.now() - start_time).total_seconds()
     context['llm_time_sec'] = spent_time_sec
+    context['llm_name'] = chat_model.__class__.__name__
+    context['llm_output'] = resp
     return resp
 
   llm_chat = RunnableLambda(functools.partial(
@@ -135,6 +137,7 @@ def get(
       context: dict[str, Any]):
     audio_file_path = data_dict['audio_file_path']
     resp = stt_model.audio_2_text(audio_file_path)
+    context['stt_name'] = stt_model.name
     context['stt_time_sec'] = resp.spent_time_sec
     context['stt_output'] = resp.text
     return {'question': resp.text}
@@ -151,6 +154,7 @@ def get(
       context: dict[str, Any]):
     resp = tts_model.text_2_audio(text)
     context['tts_time_sec'] = resp.spent_time_sec
+    context['tts_name'] = tts_model.name
     return resp.generated_audio_file_path
 
   output_text_2_audio_file = functools.partial(
@@ -175,10 +179,14 @@ def get(
       'audio_file_path': input_audio_file_path})
     return {
         'output_audio_file_path': resp,
+        'tts_name': context['tts_name'],
         'tts_time_sec': context['tts_time_sec'],
+        'stt_name': context['stt_name'],
         'stt_time_sec': context['stt_time_sec'],
         'stt_output':   context['stt_output'],
+        'llm_name': context['llm_name'],
         'llm_time_sec': context['llm_time_sec'],
+        'llm_output': context['llm_output'],
     }
 
   return functools.partial(_answer, chain=chain, context=context)

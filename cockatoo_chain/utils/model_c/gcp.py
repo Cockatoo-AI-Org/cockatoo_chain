@@ -1,6 +1,6 @@
 """Integration of text to speech solution from GCP."""
 
-import datetime
+import time
 import logging
 import os
 from typing import Sequence
@@ -35,7 +35,7 @@ class GCPText2SpeechWrapper(ModelBase):
   """
 
   def __init__(self, settings):
-    super().__init__(settings)
+    super().__init__(settings['lang'])
     key_path = os.environ.get('GOOGLE_APPLICATION_CREDENTIALS')
     self._output_path = settings.get('audio_output_path', AUDIO_OUTPUT_PATH)
     self._voice_name = settings.get('voice_name', 'en-US-Studio-O')
@@ -97,7 +97,7 @@ class GCPText2SpeechWrapper(ModelBase):
       `Text2AudioData` with trasnformed audio information.
     """
     language_code = '-'.join(self._voice_name.split('-')[:2])
-    start_time = datetime.datetime.now()
+    start_time = time.time()
     text_input = tts.SynthesisInput(text=text)
     voice_params = tts.VoiceSelectionParams(
         language_code=language_code, name=self._voice_name)
@@ -111,8 +111,8 @@ class GCPText2SpeechWrapper(ModelBase):
     with open(output_audio_file_path, 'wb') as out:
       out.write(response.audio_content)
 
-    spent_time = datetime.datetime.now() - start_time
+    time_diff_sec = time.time() - start_time
     return Text2AudioData(
         text=text,
-        spent_time_sec=spent_time.total_seconds(),
+        spent_time_sec=time_diff_sec,
         generated_audio_file_path=output_audio_file_path)
