@@ -35,7 +35,7 @@ class GCPText2SpeechWrapper(ModelBase):
   """
 
   def __init__(self, settings):
-    super().__init__(settings['lang'])
+    super().__init__(settings.get('lang'))
     key_path = os.environ.get('GOOGLE_APPLICATION_CREDENTIALS')
     self._output_path = settings.get('audio_output_path', AUDIO_OUTPUT_PATH)
     self._voice_name = settings.get('voice_name', 'en-US-Studio-O')
