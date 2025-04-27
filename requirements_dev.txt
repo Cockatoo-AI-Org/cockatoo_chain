@@ -4,10 +4,10 @@ appnope==0.1.4 ; python_version >= "3.9" and python_version < "4.0" and platform
 asttokens==3.0.0 ; python_version >= "3.9" and python_version < "4.0"
 cachetools==5.5.2 ; python_version >= "3.9" and python_version < "4.0"
 certifi==2025.1.31 ; python_version >= "3.9" and python_version < "4.0"
-cffi==1.17.1 ; python_version >= "3.9" and python_version < "4.0" and (implementation_name == "pypy" or platform_python_implementation == "PyPy")
+cffi==1.17.1 ; python_version >= "3.9" and python_version < "4.0" and (platform_python_implementation == "PyPy" or implementation_name == "pypy")
 cfgv==3.4.0 ; python_version >= "3.9" and python_version < "4.0"
 charset-normalizer==3.4.1 ; python_version >= "3.9" and python_version < "4.0"
-colorama==0.4.6 ; python_version >= "3.9" and python_version < "4.0" and (sys_platform == "win32" or platform_system == "Windows")
+colorama==0.4.6 ; python_version >= "3.9" and python_version < "4.0" and (platform_system == "Windows" or sys_platform == "win32")
 comm==0.2.2 ; python_version >= "3.9" and python_version < "4.0"
 coverage==7.6.12 ; python_version >= "3.9" and python_version < "4.0"
 debugpy==1.8.13 ; python_version >= "3.9" and python_version < "4.0"
@@ -23,6 +23,7 @@ google-api-python-client==2.168.0 ; python_version >= "3.9" and python_version <
 google-auth-httplib2==0.2.0 ; python_version >= "3.9" and python_version < "4.0"
 google-auth==2.39.0 ; python_version >= "3.9" and python_version < "4.0"
 google-cloud-speech==2.32.0 ; python_version >= "3.9" and python_version < "4.0"
+google-cloud-texttospeech==2.26.0 ; python_version >= "3.9" and python_version < "4.0"
 googleapis-common-protos==1.70.0 ; python_version >= "3.9" and python_version < "4.0"
 grpcio-status==1.62.3 ; python_version >= "3.9" and python_version < "4.0"
 grpcio==1.71.0 ; python_version >= "3.9" and python_version < "4.0"
@@ -71,7 +72,7 @@ pure-eval==0.2.3 ; python_version >= "3.9" and python_version < "4.0"
 pyasn1-modules==0.4.2 ; python_version >= "3.9" and python_version < "4.0"
 pyasn1==0.6.1 ; python_version >= "3.9" and python_version < "4.0"
 pycodestyle==2.12.1 ; python_version >= "3.9" and python_version < "4.0"
-pycparser==2.22 ; python_version >= "3.9" and python_version < "4.0" and (implementation_name == "pypy" or platform_python_implementation == "PyPy")
+pycparser==2.22 ; python_version >= "3.9" and python_version < "4.0" and (platform_python_implementation == "PyPy" or implementation_name == "pypy")
 pydantic-core==2.27.2 ; python_version >= "3.9" and python_version < "4.0"
 pydantic==2.10.6 ; python_version >= "3.9" and python_version < "4.0"
 pyflakes==3.2.0 ; python_version >= "3.9" and python_version < "4.0"
