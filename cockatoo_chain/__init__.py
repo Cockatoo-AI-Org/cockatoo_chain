@@ -104,7 +104,7 @@ def get(
     chat_model: Any = None,
     tts_config: TTSConfig = TTSConfig.default(),
     prompt: ChatPromptTemplate = DEFAULT_PROMPT
-    ) -> Callable[[str], dict[str, Any]]:
+) -> Callable[[str], dict[str, Any]]:
   """Gets chain of model A, model B and model C.
 
   Args:
@@ -115,7 +115,7 @@ def get(
   """
   context = {}
   chat_model = chat_model or ChatOpenAI(
-      model="gpt-3.5-turbo-0125", temperature=0)
+    model="gpt-3.5-turbo-0125", temperature=0)
 
   def _llm_chat(prompt, chat_model, context):
     start_time = datetime.now()
@@ -177,16 +177,6 @@ def get(
       context: dict[str, Any]):
     resp = chain.invoke({
       'audio_file_path': input_audio_file_path})
-    return {
-        'output_audio_file_path': resp,
-        'tts_name': context['tts_name'],
-        'tts_time_sec': context['tts_time_sec'],
-        'stt_name': context['stt_name'],
-        'stt_time_sec': context['stt_time_sec'],
-        'stt_output':   context['stt_output'],
-        'llm_name': context['llm_name'],
-        'llm_time_sec': context['llm_time_sec'],
-        'llm_output': context['llm_output'],
-    }
+    return {'output_audio_file_path': resp} | context
 
   return functools.partial(_answer, chain=chain, context=context)
