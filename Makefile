@@ -5,7 +5,7 @@ init-repo-setup:
 	pre-commit install
 
 poetry-export-dev:
-	poetry export --with dev --without-hashes -f requirements.txt -o requirements.txt
+	poetry export --with dev --without-hashes -f requirements.txt -o requirements_dev.txt
 
 poetry-export-prod:
 	poetry export --without-hashes -f requirements.txt -o requirements.txt
