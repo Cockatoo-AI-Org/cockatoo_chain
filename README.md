@@ -1,6 +1,22 @@
 # cockatoo_chain
 This repo is intended for STT, LLM and TSS models chaining.
 
+# Installation
+Use below command to install the `cockatoo_chain` package:
+```shell
+# Create Python virtual environment
+$ python -m venv env
+
+# Enter virtual Python runtime
+$ source env/bin/activate
+
+# Install the target package
+$ pip install cockatoo_chain
+
+# Validate the installation
+$ python -c 'import cockatoo_chain' && echo 'Success'
+Success
+```
 
 # Development Mode
 Development Mode is intended for users who wish to contribute to the repo and thus needs to install additional dev-related packages for, e.g., code quality checking, to satisfy the standard of the repo.
