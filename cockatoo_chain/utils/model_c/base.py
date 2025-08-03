@@ -18,5 +18,5 @@ class ModelBase(wrapper.ModelC):
       text: Text to speak.
     """
     result = self.text_2_audio(text)
-    logging.info('Play audio from %s', result.audio_file_path)
+    logging.info('Play audio from %s', result.generated_audio_file_path)
     # TBD: Play audio with result.audio_file_path
