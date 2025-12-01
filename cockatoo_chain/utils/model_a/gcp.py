@@ -1,4 +1,5 @@
 """Wrapper of GCP STT solution."""
+from typing import Any
 import logging
 import os
 import time
@@ -6,7 +7,6 @@ import wave
 from google.cloud import speech as stt
 # from google.cloud import speech_v2 as stt
 from google.oauth2 import service_account
-
 from cockatoo_chain.utils import wrapper
 from cockatoo_chain.utils.model_a import base
 
@@ -35,13 +35,14 @@ class GCPSpeech2TextWrapper(ModelBase):
     supported language code, refer to:
     https://cloud.google.com/speech-to-text/docs/speech-to-text-supported-languages
   """
-  def __init__(self, settings):
+
+  def __init__(self, settings: dict[str, Any]):
     super().__init__(settings['lang'])
     key_path = os.environ.get('GOOGLE_APPLICATION_CREDENTIALS')
     self._credentials = service_account.Credentials.from_service_account_file(
-        key_path,
-        scopes=[
-            'https://www.googleapis.com/auth/cloud-platform'])
+      key_path,
+      scopes=['https://www.googleapis.com/auth/cloud-platform']
+    )
     logging.info('Start authorizing...')
     self._client = stt.SpeechClient()
     self._input_path = settings.get('audio_input_path', AUDIO_INPUT_PATH)
@@ -61,7 +62,7 @@ class GCPSpeech2TextWrapper(ModelBase):
     with wave.open(audio_file_path, 'rb') as wave_file:
       frame_rate = wave_file.getframerate()
       channels = wave_file.getnchannels()
-      return frame_rate, channels
+    return frame_rate, channels
 
   def audio_2_text(self, audio_file_path: str | None = None) -> Audio2TextData:
     """Turns audio from input audio file into text."""

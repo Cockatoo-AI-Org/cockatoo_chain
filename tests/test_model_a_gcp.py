@@ -1,5 +1,6 @@
 from cockatoo_chain.utils.model_a import gcp
 from cockatoo_chain.utils import wrapper
+import os
 import tempfile
 import unittest
 from unittest import mock
@@ -42,8 +43,11 @@ class TestCockatooChain(unittest.TestCase):
     self.gcp_wrapper._frame_rate_channel = mock.MagicMock(
       return_value=(1, 2))
 
-    with tempfile.NamedTemporaryFile(mode="w+") as temp_file:
-      test_file_path = temp_file.name
+    with tempfile.TemporaryDirectory() as temp_dir:
+      # mock reading audio file
+      test_file_path = os.path.join(temp_dir, 'test_audio.wav')
+      with open(test_file_path, 'wb') as f:
+        f.write('fake audio content'.encode('utf-8'))
       response = self.gcp_wrapper.audio_2_text(test_file_path)
 
       self.assertEqual(response.text, 'helloworld')
