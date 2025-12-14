@@ -1,4 +1,5 @@
 """Wrapper of package `speech_recognition`."""
+from typing import Any
 import logging
 import openai
 import os
@@ -28,8 +29,9 @@ class OpenAIWrapper(ModelBase):
   """
 
   def __init__(
-      self, lang: wrapper.LangEnum, model: str = 'whisper-1'):
-    super().__init__(lang)
+    self, settings: dict[str, Any], model: str = 'whisper-1'
+  ):
+    super().__init__(settings['lang'])
     self._client = openai.OpenAI()
     self._model = model
 
@@ -49,9 +51,10 @@ class OpenAIWrapper(ModelBase):
     start_time = time.time()
     try:
       # Using Whisper API
-      transcription = self.client.audio.transcriptions.create(
-          model=self._model,
-          file=open(audio_file_path, 'rb'))
+      with open(audio_file_path, 'rb') as audio_file:
+        transcription = self.client.audio.transcriptions.create(
+            model=self._model,
+            file=audio_file)
 
       audio_text = transcription.text
       time_diff_sec = time.time() - start_time

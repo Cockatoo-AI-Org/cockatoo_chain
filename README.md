@@ -42,6 +42,22 @@ $ source activate <your venv>
 $ make init-repo-setup
 ```
 
+# Credentials
+The project uses 3rd party API to provide services such as
+- Speech-to-Text Models (i.e., Model A)
+- LLM Models (i.e., Model B)
+- Text-to-Speech Models (i.e., Model C)
+
+To use these services at the local env, user need to set up credentials at the local.
+For example, Model A has Whisper from OpenAI or the STT from Google, then user needs
+the corresponding credential from different service providers.
+- For Google services, please firstly create a [GOOGLE_APPLICATION_CREDENTIALS](https://docs.cloud.google.com/docs/authentication/application-default-credentials#GAC) envrionment variable, which should stores the path to the `.json` file that stores your GCP credential.
+  - For more details see: https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment#google-account  (Trouble shoot: https://docs.cloud.google.com/docs/authentication/troubleshoot-adc#user-creds-client-based)
+  - For service account authorization, see: [Cockatoo_Chain Wiki](https://github.com/Cockatoo-AI-Org/cockatoo_chain/wiki)
+
+
+
+
 # Model A Usage
 From `cockagoo_chain` package, you can easily access the power of Model A (Speech-to-text) with a few lines of codes. We will learn how to from this section. For the time being, `cockagoo_chain` support below types of model A:
 
@@ -56,7 +72,8 @@ You can use below code snippet to get the supported model A options:
 >>> from cockatoo_chain.utils import model_a
 >>> model_type = model_a.ModelType
 >>> list(model_type)
-[<ModelType.OPEN_AI_WHISPER: 'open_ai_whisper'>]
+[<ModelType.OPEN_AI_WHISPER: 'open_ai_whisper'>,
+ <ModelType.GCP_STT: 'gcp_stt'>]
 ```
 
 ## Transform input audio file into text
@@ -101,3 +118,7 @@ Text2AudioData(
     spent_time_sec=1.822951,
     generated_audio_file_path='/tmp/gcp_tts_output.wav')
 ```
+
+## References
+- [LangChain Integration Lab Model A,B,C- John Lee](https://github.com/Cockatoo-AI-Org/Cockatoo.AI/blob/master/experiments/model_a_eval/langchain_integrate_lab.ipynb)
+-
